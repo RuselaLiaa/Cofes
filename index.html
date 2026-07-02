@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>BrewWise Academy | Panduan Mesin Kopi</title>
+  <meta name="description" content="Panduan mudah menggunakan mesin kopi di rumah, tips penyediaan kopi, penjagaan mesin dan cara menghasilkan kopi yang lebih konsisten." />
+
+  <style>
+    :root {
+      --dark: #1f1712;
+      --brown: #6f4e37;
+      --cream: #f7efe5;
+      --soft: #fffaf3;
+      --text: #3b3028;
+      --muted: #76685f;
+      --line: #ead8c6;
+      --accent: #c28b55;
+      --green: #536b4a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .topbar {
+      background: var(--dark);
+      color: #f5e6d3;
+      font-size: 14px;
+      padding: 10px 6%;
+      text-align: center;
+    }
+
+    header {
+      background: var(--soft);
+      padding: 18px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      font-size: 23px;
+      color: var(--dark);
+    }
+
+    .brand-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--brown), var(--accent));
+      display: grid;
+      place-items: center;
+      color: white;
+      font-weight: 900;
+    }
+
+    nav {
+      display: flex;
+      gap: 24px;
+      font-weight: 600;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    nav a:hover {
+      color: var(--brown);
+    }
+
+    .hero {
+      min-height: 620px;
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      background: var(--soft);
+    }
+
+    .hero-left {
+      padding: 75px 6vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .tag {
+      width: fit-content;
+      background: #efe0cd;
+      color: var(--brown);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(38px, 5vw, 64px);
+      line-height: 1.05;
+      color: var(--dark);
+      margin-bottom: 22px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 620px;
+      margin-bottom: 30px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 14px 24px;
+      border-radius: 14px;
+      border: none;
+      cursor: pointer;
+      font-weight: 800;
+      font-size: 15px;
+    }
+
+    .btn-primary {
+      background: var(--brown);
+      color: white;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--brown);
+      border: 1px solid var(--brown);
+    }
+
+    .hero-right {
+      position: relative;
+      min-height: 520px;
+      background:
+        linear-gradient(rgba(31, 23, 18, 0.15), rgba(31, 23, 18, 0.25)),
+        url("https://images.unsplash.com/photo-1498804103079-a6351b050096?auto=format&fit=crop&w=1200&q=80");
+      background-size: cover;
+      background-position: center;
+    }
+
+    .floating-card {
+      position: absolute;
+      left: 35px;
+      bottom: 35px;
+      background: rgba(255, 250, 243, 0.92);
+      backdrop-filter: blur(8px);
+      padding: 22px;
+      border-radius: 22px;
+      width: 310px;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.25);
+    }
+
+    .floating-card h3 {
+      color: var(--dark);
+      margin-bottom: 8px;
+      font-size: 20px;
+    }
+
+    .floating-card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: #fff7ee;
+    }
+
+    .stat {
+      padding: 28px 6%;
+      border-right: 1px solid var(--line);
+      text-align: center;
+    }
+
+    .stat strong {
+      display: block;
+      color: var(--brown);
+      font-size: 26px;
+      margin-bottom: 4px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    section {
+      padding: 80px 6%;
+    }
+
+    .section-head {
+      max-width: 760px;
+      margin-bottom: 40px;
+    }
+
+    .section-head.center {
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .section-head small {
+      color: var(--brown);
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .section-head h2 {
+      font-size: clamp(30px, 4vw, 44px);
+      line-height: 1.15;
+      color: var(--dark);
+      margin: 10px 0 14px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .feature-layout {
+      display: grid;
+      grid-template-columns: 0.75fr 1.25fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    .side-panel {
+      background: var(--dark);
+      color: white;
+      padding: 32px;
+      border-radius: 28px;
+      position: sticky;
+      top: 105px;
+    }
+
+    .side-panel h3 {
+      font-size: 26px;
+      margin-bottom: 12px;
+    }
+
+    .side-panel p {
+      color: #e6d1bd;
+      margin-bottom: 22px;
+    }
+
+    .side-panel ul {
+      list-style: none;
+    }
+
+    .side-panel li {
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      color: #f4e6d6;
+    }
+
+    .article-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+
+    .article-card {
+      background: var(--soft);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 10px 24px rgba(50, 35, 25, 0.06);
+    }
+
+    .article-card img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .article-content {
+      padding: 24px;
+    }
+
+    .article-content h3 {
+      font-size: 22px;
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+
+    .article-content p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .steps-wrap {
+      background: #fffaf3;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .step {
+      background: white;
+      border-radius: 24px;
+      padding: 26px;
+      border: 1px solid var(--line);
+      position: relative;
+      min-height: 250px;
+    }
+
+    .step-number {
+      width: 46px;
+      height: 46px;
+      background: var(--brown);
+      color: white;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+
+    .step h3 {
+      font-size: 21px;
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .image-box img {
+      width: 100%;
+      border-radius: 30px;
+      box-shadow: 0 18px 38px rgba(50, 35, 25, 0.16);
+    }
+
+    .check-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .check-item {
+      background: white;
+      border: 1px solid var(--line);
+      padding: 16px 18px;
+      border-radius: 16px;
+      color: var(--muted);
+    }
+
+    .check-item b {
+      color: var(--brown);
+    }
+
+    .faq {
+      max-width: 900px;
+      margin: auto;
+      display: grid;
+      gap: 15px;
+    }
+
+    details {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 20px 22px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 800;
+      color: var(--dark);
+      font-size: 17px;
+    }
+
+    details p {
+      margin-top: 12px;
+      color: var(--muted);
+    }
+
+    .newsletter {
+      background:
+        linear-gradient(rgba(31,23,18,0.72), rgba(31,23,18,0.72)),
+        url("https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=1400&q=80");
+      background-size: cover;
+      background-position: center;
+      border-radius: 34px;
+      padding: 60px 30px;
+      text-align: center;
+      color: white;
+    }
+
+    .newsletter h2 {
+      font-size: 38px;
+      margin-bottom: 12px;
+    }
+
+    .newsletter p {
+      max-width: 680px;
+      margin: 0 auto 28px;
+      color: #f1dfcc;
+    }
+
+    .newsletter form {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .newsletter input {
+      width: 320px;
+      max-width: 100%;
+      border: none;
+      padding: 15px 18px;
+      border-radius: 14px;
+      font-size: 15px;
+    }
+
+    .newsletter button {
+      border: none;
+      background: var(--accent);
+      color: white;
+      padding: 15px 24px;
+      border-radius: 14px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    footer {
+      background: var(--dark);
+      color: #d9c7b5;
+      padding: 42px 6%;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr 0.7fr;
+      gap: 28px;
+      margin-bottom: 28px;
+    }
+
+    footer h3 {
+      color: white;
+      margin-bottom: 10px;
+    }
+
+    footer p,
+    footer a {
+      color: #d9c7b5;
+      font-size: 14px;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .copyright {
+      border-top: 1px solid rgba(255,255,255,0.12);
+      padding-top: 20px;
+      text-align: center;
+      font-size: 14px;
+      color: #bca996;
+    }
+
+    @media (max-width: 900px) {
+      header {
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      nav {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+
+      .hero,
+      .feature-layout,
+      .two-column,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats,
+      .steps,
+      .article-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .side-panel {
+        position: static;
+      }
+
+      .hero-left {
+        padding: 55px 6%;
+      }
+
+      .hero-right {
+        min-height: 390px;
+      }
+
+      .floating-card {
+        left: 20px;
+        right: 20px;
+        width: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="topbar">
+    Panduan kopi harian: cara guna mesin, tips penjagaan, dan teknik brew yang mudah untuk beginner.
+  </div>
+
+  <header>
+    <a href="#" class="brand">
+      <span class="brand-icon">BW</span>
+      <span>BrewWise Academy</span>
+    </a>
+
+    <nav>
+      <a href="#jenis">Jenis Mesin</a>
+      <a href="#cara">Cara Guna</a>
+      <a href="#penjagaan">Penjagaan</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <div class="hero-left">
+        <div class="tag">Coffee Machine Learning Hub</div>
+        <h1>Belajar Guna Mesin Kopi Dengan Lebih Yakin</h1>
+        <p>
+          Website ini berkongsi panduan asas untuk menggunakan mesin kopi di rumah.
+          Sesuai untuk beginner yang ingin faham cara sediakan espresso, latte,
+          americano dan kopi harian dengan lebih konsisten.
+        </p>
+
+        <div class="hero-actions">
+          <button class="btn btn-primary" onclick="document.getElementById('cara').scrollIntoView({behavior:'smooth'})">
+            Lihat Panduan
+          </button>
+          <button class="btn btn-secondary" onclick="document.getElementById('faq').scrollIntoView({behavior:'smooth'})">
+            Soalan Biasa
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="floating-card">
+          <h3>Tip Beginner</h3>
+          <p>
+            Rasa kopi yang baik bermula daripada mesin yang bersih, sukatan yang konsisten,
+            dan biji kopi yang sesuai.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="stats">
+      <div class="stat">
+        <strong>01</strong>
+        <span>Kenal jenis mesin</span>
+      </div>
+      <div class="stat">
+        <strong>02</strong>
+        <span>Sediakan bahan</span>
+      </div>
+      <div class="stat">
+        <strong>03</strong>
+        <span>Brew dengan betul</span>
+      </div>
+      <div class="stat">
+        <strong>04</strong>
+        <span>Bersihkan mesin</span>
+      </div>
+    </div>
+
+    <section id="jenis">
+      <div class="section-head">
+        <small>Kenali Mesin Kopi</small>
+        <h2>Pilih Mesin Kopi Mengikut Gaya Minuman Anda</h2>
+        <p>
+          Tidak semua mesin kopi berfungsi dengan cara yang sama. Ada mesin yang sesuai
+          untuk kopi pekat, ada yang sesuai untuk penggunaan cepat, dan ada yang sesuai
+          untuk menyediakan kopi dalam jumlah lebih banyak.
+        </p>
+      </div>
+
+      <div class="feature-layout">
+        <aside class="side-panel">
+          <h3>Checklist Ringkas</h3>
+          <p>Sebelum beli atau guna mesin kopi, perhatikan perkara asas ini.</p>
+          <ul>
+            <li>Jenis kopi yang anda suka minum</li>
+            <li>Ruang dapur atau meja yang tersedia</li>
+            <li>Kemudahan membersihkan mesin</li>
+            <li>Kos kapsul, biji kopi atau filter</li>
+            <li>Kekerapan penggunaan setiap hari</li>
+          </ul>
+        </aside>
+
+        <div class="article-grid">
+          <article class="article-card">
+            <img src="https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=900&q=80" alt="Mesin espresso">
+            <div class="article-content">
+              <h3>Mesin Espresso</h3>
+              <p>
+                Sesuai untuk espresso, latte, cappuccino dan americano.
+                Mesin ini biasanya memerlukan serbuk kopi yang lebih halus serta teknik tamping yang betul.
+              </p>
+            </div>
+          </article>
+
+          <article class="article-card">
+            <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=900&q=80" alt="Kopi di atas meja">
+            <div class="article-content">
+              <h3>Mesin Kapsul</h3>
+              <p>
+                Pilihan mudah untuk pengguna yang mahukan kopi cepat.
+                Masukkan kapsul, isi air, tekan butang dan kopi boleh siap dalam masa singkat.
+              </p>
+            </div>
+          </article>
+
+          <article class="article-card">
+            <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=900&q=80" alt="Cawan kopi">
+            <div class="article-content">
+              <h3>Drip Coffee Maker</h3>
+              <p>
+                Sesuai untuk menyediakan kopi dalam kuantiti lebih banyak.
+                Banyak digunakan di rumah, pejabat kecil dan ruang sarapan.
+              </p>
+            </div>
+          </article>
+
+          <article class="article-card">
+            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=80" alt="Barista menyediakan kopi">
+            <div class="article-content">
+              <h3>Manual & Semi-Auto</h3>
+              <p>
+                Memberi lebih kawalan kepada pengguna dari segi suhu, masa ekstraksi,
+                tekanan dan tekstur susu untuk hasil yang lebih personal.
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="cara" class="steps-wrap">
+      <div class="section-head center">
+        <small>Langkah Asas</small>
+        <h2>Cara Menggunakan Mesin Kopi</h2>
+        <p>
+          Ikuti panduan ringkas ini untuk menyediakan kopi dengan lebih kemas,
+          selamat dan konsisten setiap kali digunakan.
+        </p>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Periksa Tangki Air</h3>
+          <p>
+            Pastikan tangki air bersih dan diisi mengikut paras yang sesuai.
+            Gunakan air bersih untuk membantu mengekalkan rasa kopi.
+          </p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Sediakan Kopi</h3>
+          <p>
+            Gunakan serbuk kopi atau kapsul yang sesuai dengan mesin.
+            Untuk espresso, kisaran kopi biasanya perlu lebih halus.
+          </p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Panaskan Mesin</h3>
+          <p>
+            Biarkan mesin panas seketika sebelum brew. Suhu yang stabil membantu
+            menghasilkan rasa kopi yang lebih baik.
+          </p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">4</div>
+          <h3>Pasang Filter</h3>
+          <p>
+            Masukkan kopi ke dalam filter dan pastikan ia dipasang dengan kemas.
+            Jangan terlalu longgar supaya air dapat mengalir dengan baik.
+          </p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">5</div>
+          <h3>Mula Brew</h3>
+          <p>
+            Letakkan cawan di bawah outlet kopi dan tekan butang brew.
+            Tunggu sehingga kopi selesai mengalir ke dalam cawan.
+          </p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">6</div>
+          <h3>Bersihkan Selepas Guna</h3>
+          <p>
+            Buang sisa kopi, bilas filter dan lap permukaan mesin.
+            Ini membantu mesin tahan lebih lama dan mengelakkan bau lama.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="penjagaan">
+      <div class="two-column">
+        <div>
+          <div class="section-head">
+            <small>Penjagaan Mesin</small>
+            <h2>Mesin Yang Bersih, Kopi Lebih Sedap</h2>
+            <p>
+              Penjagaan mesin kopi sangat penting kerana minyak kopi dan sisa serbuk
+              boleh terkumpul dari masa ke masa. Jika tidak dibersihkan, rasa kopi
+              boleh menjadi pahit atau kurang segar.
+            </p>
+          </div>
+
+          <div class="check-list">
+            <div class="check-item"><b>Harian:</b> Bilas filter, drip tray dan lap permukaan mesin.</div>
+            <div class="check-item"><b>Mingguan:</b> Cuci bahagian yang boleh ditanggalkan dengan air suam.</div>
+            <div class="check-item"><b>Bulanan:</b> Lakukan descaling jika mesin kerap digunakan.</div>
+            <div class="check-item"><b>Simpanan:</b> Pastikan tangki air dikosongkan jika mesin tidak digunakan lama.</div>
+          </div>
+        </div>
+
+        <div class="image-box">
+          <img src="https://images.unsplash.com/photo-1459755486867-b55449bb39ff?auto=format&fit=crop&w=1000&q=80" alt="Kopi dan mesin kopi">
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="section-head center">
+        <small>FAQ</small>
+        <h2>Soalan Biasa Tentang Mesin Kopi</h2>
+        <p>
+          Beberapa jawapan ringkas untuk masalah yang biasa dialami oleh pengguna baru.
+        </p>
+      </div>
+
+      <div class="faq">
+        <details>
+          <summary>Kenapa kopi saya rasa terlalu pahit?</summary>
+          <p>
+            Kopi boleh menjadi terlalu pahit jika serbuk terlalu halus, ekstraksi terlalu lama,
+            suhu terlalu tinggi atau mesin tidak dibersihkan dengan baik.
+          </p>
+        </details>
+
+        <details>
+          <summary>Berapa kerap perlu bersihkan mesin kopi?</summary>
+          <p>
+            Bahagian asas seperti filter dan drip tray sebaiknya dibersihkan selepas digunakan.
+            Untuk descaling, ikut kekerapan penggunaan dan panduan mesin masing-masing.
+          </p>
+        </details>
+
+        <details>
+          <summary>Boleh guna apa-apa jenis serbuk kopi?</summary>
+          <p>
+            Boleh, tetapi hasilnya bergantung pada jenis mesin. Mesin espresso biasanya perlukan
+            kisaran lebih halus, manakala drip coffee maker lebih sesuai dengan kisaran sederhana.
+          </p>
+        </details>
+
+        <details>
+          <summary>Kenapa kopi keluar terlalu cair?</summary>
+          <p>
+            Mungkin sukatan kopi terlalu sedikit, kisaran terlalu kasar, atau masa brew terlalu singkat.
+            Cuba tambah sukatan kopi dan gunakan kisaran yang lebih sesuai.
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <section>
+      <div class="newsletter">
+        <h2>Dapatkan Tips Kopi Setiap Minggu</h2>
+        <p>
+          Terima panduan ringkas tentang cara brew, penjagaan mesin, pilihan biji kopi,
+          dan idea minuman yang mudah dibuat di rumah.
+        </p>
+
+        <form onsubmit="event.preventDefault(); alert('Terima kasih! Email anda telah diterima.');">
+          <input type="email" placeholder="Masukkan email anda" required />
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <h3>BrewWise Academy</h3>
+        <p>
+          Laman informasi ringkas tentang kopi, mesin kopi, cara penggunaan,
+          dan penjagaan harian untuk pembaca beginner.
+        </p>
+      </div>
+
+      <div>
+        <h3>Menu</h3>
+        <a href="#jenis">Jenis Mesin</a>
+        <a href="#cara">Cara Guna</a>
+        <a href="#penjagaan">Penjagaan</a>
+        <a href="#faq">FAQ</a>
+      </div>
+
+      <div>
+        <h3>Info</h3>
+        <a href="#">About Us</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Contact</a>
+        <a href="#">Editorial Guide</a>
+      </div>
+    </div>
+
+    <div class="copyright">
+      © 2026 BrewWise Academy. Educational coffee guide website.
+    </div>
+  </footer>
+
+</body>
+</html>
